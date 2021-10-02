@@ -149,10 +149,10 @@ public class AppController {
            String email = bufferedReader.readLine();
            System.out.println("Выберите роль\n" +
                    "1-SUPER_ADMIN \n"+
-                   "2-USER_ADMIN \n" +
+                   "2-CUSTOMER_PROVIDER \n" +
                    "3-USER_PROVIDER \n" +
                    "4-CUSTOMER_ADMIN \n" +
-                   "5-CUSTOMER_PROVIDER");
+                   "5-USER_ADMIN");
            String s = bufferedReader.readLine();
            ERole role = null;
            switch (s.charAt(0)){
@@ -160,7 +160,7 @@ public class AppController {
                    role=ERole.SUPER_ADMIN;
                    break;
                case '2':
-                   role=ERole.USER_ADMIN;
+                   role=ERole.CUSTOMER_PROVIDER;
                    break;
                case '3':
                    role=ERole.USER_PROVIDER;
@@ -169,7 +169,7 @@ public class AppController {
                    role=ERole.CUSTOMER_ADMIN;
                    break;
                default:
-                   role=ERole.CUSTOMER_PROVIDER;
+                   role=ERole.USER_ADMIN;
            }
        List<String> numbers = new ArrayList<>();
            for(int i=1;i<=3;i++){
