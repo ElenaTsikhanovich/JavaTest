@@ -71,11 +71,14 @@ public class AppController {
            String email= bufferedReader.readLine();
            User user = this.iUserService.get(email);
            if(user!=null){
-               System.out.printf("Имя: %s \nФамилия: %s \nРоль: %s \nEmail: %s \nТелефон: \n",
-                       user.getFirstName(),user.getLastName(),user.getRole(),user.getEmail());
-               for(String number: user.getNumber()){
+               System.out.printf("%s %s\n%s\n",
+                       user.getFirstName(),user.getLastName(),user.getEmail());
+               for(String number:user.getNumber()){
                    System.out.println(number);
                }
+               for(int i=0;i<user.getRole().length;i++){
+                   System.out.println(user.getRole()[i]);
+               }System.out.println("----------");
            }else System.out.println("Пользователь с такими данными не зарегистрирован! Попробуйте еще раз");
 
            start();
@@ -108,13 +111,14 @@ public class AppController {
        List<User> all = this.iUserService.getAll();
        if(all.size()!=0) {
            for (User user : all) {
-               System.out.printf("Имя: %s \nФамилия: %s \nРоль: %s \nEmail: \n%s Телефон: \n",
-                       user.getFirstName(), user.getLastName(), user.getRole(), user.getEmail());
-               for (String number : user.getNumber()) {
+               System.out.printf("%s %s\n%s\n",
+                       user.getFirstName(),user.getLastName(),user.getEmail());
+               for(String number:user.getNumber()){
                    System.out.println(number);
                }
-               System.out.println("-------");
-
+               for(int i=0;i<user.getRole().length;i++){
+                   System.out.println(user.getRole()[i]);
+               }System.out.println("----------");
            }
        }else System.out.println("Нет сохраненных пользователей");
        start();
@@ -154,22 +158,34 @@ public class AppController {
                    "4-CUSTOMER_ADMIN \n" +
                    "5-USER_ADMIN");
            String s = bufferedReader.readLine();
-           ERole role = null;
-           switch (s.charAt(0)){
+           ERole[] role;
+       switch (s.charAt(0)){
                case '1':
-                   role=ERole.SUPER_ADMIN;
+                   role=new ERole[1];
+                   role[0]=ERole.SUPER_ADMIN;
                    break;
                case '2':
-                   role=ERole.CUSTOMER_PROVIDER;
+                   role=new ERole[2];
+                   role[0]=ERole.CUSTOMER;
+                   role[1]=ERole.PROVIDER;
                    break;
                case '3':
-                   role=ERole.USER_PROVIDER;
+                   role=new ERole[2];
+                   role[0]=ERole.USER;
+                   role[1]=ERole.PROVIDER;
                    break;
                case '4':
-                   role=ERole.CUSTOMER_ADMIN;
+                   role=new ERole[2];
+                   role[0]=ERole.CUSTOMER;
+                   role[1]=ERole.ADMIN;
                    break;
+               case '5':
+                   role=new ERole[2];
+                   role[0]=ERole.USER;
+                   role[1]=ERole.ADMIN;
                default:
-                   role=ERole.USER_ADMIN;
+                   role=new ERole[1];
+                   role[0]=ERole.USER;
            }
        List<String> numbers = new ArrayList<>();
            for(int i=1;i<=3;i++){

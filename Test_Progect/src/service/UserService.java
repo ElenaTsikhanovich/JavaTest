@@ -51,10 +51,13 @@ public class UserService implements IUserService {
                     return false;
                 }
             }
-            if (!isExist(user.getEmail())) {
-                this.iUserStorage.update(user, currentEmail);
-                return true;
+            if(!user.getEmail().equalsIgnoreCase(currentEmail)){
+                if(isExist(user.getEmail())){
+                    return false;
+                }
             }
+            this.iUserStorage.update(user,currentEmail);
+            return true;
         }
         return false;
     }
