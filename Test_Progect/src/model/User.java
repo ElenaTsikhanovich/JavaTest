@@ -6,7 +6,7 @@ import java.util.List;
 public class User implements Serializable {
     private String firstName;
     private String lastName;
-    private ERole[] role;
+    private List<ERole> role;
     private String email;
     private List<String> number;
 
@@ -14,7 +14,7 @@ public class User implements Serializable {
 
     }
 
-    public User(String firstName, String lastName, ERole[] role, String email, List<String> number) {
+    public User(String firstName, String lastName, List<ERole> role, String email, List<String> number) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
@@ -38,11 +38,11 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public ERole[] getRole() {
+    public List<ERole> getRole() {
         return role;
     }
 
-    public void setRole(ERole[] role) {
+    public void setRole(List<ERole> role) {
         this.role = role;
     }
 

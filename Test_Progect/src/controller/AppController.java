@@ -76,8 +76,8 @@ public class AppController {
                for(String number:user.getNumber()){
                    System.out.println(number);
                }
-               for(int i=0;i<user.getRole().length;i++){
-                   System.out.println(user.getRole()[i]);
+               for(ERole role:user.getRole()){
+                   System.out.println(role);
                }System.out.println("----------");
            }else System.out.println("Пользователь с такими данными не зарегистрирован! Попробуйте еще раз");
 
@@ -116,8 +116,8 @@ public class AppController {
                for(String number:user.getNumber()){
                    System.out.println(number);
                }
-               for(int i=0;i<user.getRole().length;i++){
-                   System.out.println(user.getRole()[i]);
+               for(ERole role:user.getRole()){
+                   System.out.println(role);
                }System.out.println("----------");
            }
        }else System.out.println("Нет сохраненных пользователей");
@@ -153,39 +153,33 @@ public class AppController {
            String email = bufferedReader.readLine();
            System.out.println("Выберите роль\n" +
                    "1-SUPER_ADMIN \n"+
-                   "2-CUSTOMER_PROVIDER \n" +
-                   "3-USER_PROVIDER \n" +
-                   "4-CUSTOMER_ADMIN \n" +
-                   "5-USER_ADMIN");
+                   "2-CUSTOMER + PROVIDER \n" +
+                   "3-USER + PROVIDER \n" +
+                   "4-CUSTOMER + ADMIN \n" +
+                   "5-USER + ADMIN");
            String s = bufferedReader.readLine();
-           ERole[] role;
+           List<ERole>role=new ArrayList<>();
        switch (s.charAt(0)){
                case '1':
-                   role=new ERole[1];
-                   role[0]=ERole.SUPER_ADMIN;
+                   role.add(ERole.SUPER_ADMIN);
                    break;
                case '2':
-                   role=new ERole[2];
-                   role[0]=ERole.CUSTOMER;
-                   role[1]=ERole.PROVIDER;
+                   role.add(ERole.CUSTOMER);
+                   role.add(ERole.PROVIDER);
                    break;
                case '3':
-                   role=new ERole[2];
-                   role[0]=ERole.USER;
-                   role[1]=ERole.PROVIDER;
+                   role.add(ERole.USER);
+                   role.add(ERole.PROVIDER);
                    break;
                case '4':
-                   role=new ERole[2];
-                   role[0]=ERole.CUSTOMER;
-                   role[1]=ERole.ADMIN;
+                  role.add(ERole.CUSTOMER);
+                  role.add(ERole.ADMIN);
                    break;
                case '5':
-                   role=new ERole[2];
-                   role[0]=ERole.USER;
-                   role[1]=ERole.ADMIN;
+                  role.add(ERole.USER);
+                  role.add(ERole.ADMIN);
                default:
-                   role=new ERole[1];
-                   role[0]=ERole.USER;
+                   role.add(ERole.USER);
            }
        List<String> numbers = new ArrayList<>();
            for(int i=1;i<=3;i++){
