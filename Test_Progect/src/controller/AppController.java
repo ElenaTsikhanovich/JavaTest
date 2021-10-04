@@ -199,10 +199,6 @@ public class AppController {
            user.setEmail(email);
            user.setRole(role);
            user.setNumber(numbers);
-
-           bufferedReader.close();
-           inputStreamReader.close();
-
        return user;
    }
 }
