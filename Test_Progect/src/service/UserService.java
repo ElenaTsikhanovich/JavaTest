@@ -2,8 +2,7 @@ package service;
 
 import model.User;
 import service.api.IUserService;
-import service.utils.EmailValidator;
-import service.utils.NumberValidator;
+import service.utils.DataValidator;
 import storage.UserStorage;
 import storage.api.IUserStorage;
 import java.util.List;
@@ -11,9 +10,11 @@ import java.util.List;
 public class UserService implements IUserService {
     private static UserService instance;
     private IUserStorage iUserStorage;
+    private DataValidator dataValidator;
 
     private UserService(){
         this.iUserStorage= UserStorage.getInstance();
+        this.dataValidator=DataValidator.getInstance();
     }
 
     public static UserService getInstance() {
@@ -25,38 +26,26 @@ public class UserService implements IUserService {
 
     @Override
     public boolean save(User user) {
-        boolean mailValid = new EmailValidator().isValid(user.getEmail());
-        if(mailValid) {
-            for (String number : user.getNumber()) {
-                boolean numberValid = new NumberValidator().isValid(number);
-                if (!numberValid) {
-                    return false;
-                }
-            }
+        boolean valid = this.dataValidator.isValid(user);
+        if(valid) {
             if (!isExist(user.getEmail())) {
                 this.iUserStorage.save(user);
                 return true;
-                }
             }
+        }
         return false;
     }
 
     @Override
     public boolean update(User user, String currentEmail) {
-        boolean mailValid = new EmailValidator().isValid(user.getEmail());
-        if(mailValid) {
-            for (String number : user.getNumber()) {
-                boolean numberValid = new NumberValidator().isValid(number);
-                if (!numberValid) {
+        boolean valid = this.dataValidator.isValid(user);
+        if (valid) {
+            if (!user.getEmail().equalsIgnoreCase(currentEmail)) {
+                if (isExist(user.getEmail())) {
                     return false;
                 }
             }
-            if(!user.getEmail().equalsIgnoreCase(currentEmail)){
-                if(isExist(user.getEmail())){
-                    return false;
-                }
-            }
-            this.iUserStorage.update(user,currentEmail);
+            this.iUserStorage.update(user, currentEmail);
             return true;
         }
         return false;

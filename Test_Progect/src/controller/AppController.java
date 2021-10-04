@@ -23,7 +23,7 @@ public class AppController {
                     "3-внести изменения\n" +
                     "4-посмотреть всех пользователей\n" +
                     "5-удалить пользователя\n" +
-                    "6-выйти");
+                    "any-выйти");
             char a;
                 a= (char) bufferedReader.read();
                 switch (a){
@@ -57,7 +57,7 @@ public class AppController {
             if (isSave) {
                 System.out.println("Пользователь сохранен! Можете выбрать другую операцию или выйти");
             } else {
-                System.out.println("Некорректно введен номер телефона или email!");
+                System.out.println("Номер телефона, email или роль отсутствуют или введены некорректно!");
             }
             start();
         }catch (IOException e){
@@ -67,7 +67,7 @@ public class AppController {
 
    public void getUser() {
        try (BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in))){
-           System.out.println("Введите email пользовтаеля");
+           System.out.println("Введите email пользователя");
            String email= bufferedReader.readLine();
            User user = this.iUserService.get(email);
            if(user!=null){
@@ -98,7 +98,7 @@ public class AppController {
            boolean update = this.iUserService.update(user, currentEmail);
            if(update) {
                System.out.println("Пользователь успешно отредактирован");
-           }else System.out.println("Проверьте корректность номера или email");
+           }else System.out.println("Номер телефона, email или роль отсутствуют или введены некорректно!");
            }else System.out.println("Вы не можете редактировать несохраненных пользователей");
 
            start();
@@ -159,27 +159,27 @@ public class AppController {
                    "5-USER + ADMIN");
            String s = bufferedReader.readLine();
            List<ERole>role=new ArrayList<>();
-       switch (s.charAt(0)){
-               case '1':
+       switch (s){
+               case "1":
                    role.add(ERole.SUPER_ADMIN);
                    break;
-               case '2':
+               case "2":
                    role.add(ERole.CUSTOMER);
                    role.add(ERole.PROVIDER);
                    break;
-               case '3':
+               case "3":
                    role.add(ERole.USER);
                    role.add(ERole.PROVIDER);
                    break;
-               case '4':
+               case "4":
                   role.add(ERole.CUSTOMER);
                   role.add(ERole.ADMIN);
                    break;
-               case '5':
+               case "5":
                   role.add(ERole.USER);
                   role.add(ERole.ADMIN);
                default:
-                   role.add(ERole.USER);
+                   break;
            }
        List<String> numbers = new ArrayList<>();
            for(int i=1;i<=3;i++){

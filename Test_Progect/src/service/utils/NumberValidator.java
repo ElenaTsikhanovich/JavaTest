@@ -1,12 +1,18 @@
 package service.utils;
 
-import service.api.IDataValidation;
 
-public class NumberValidator implements IDataValidation {
-    @Override
-    public boolean isValid(String number) {
-        if (number.startsWith("375")||number.startsWith("+375")){
+import java.util.List;
+
+public class NumberValidator {
+    public boolean isValid(List<String> number) {
+        if (number.size() > 0) {
+            for (String num : number) {
+                if (!(num.startsWith("375") || num.startsWith("+375"))){
+                    return false;
+                }
+            }
             return true;
-        }return false;
+        }
+        return false;
     }
 }
