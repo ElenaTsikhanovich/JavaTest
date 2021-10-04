@@ -16,7 +16,8 @@ public class AppController {
 
     }
     public void start(){
-        try (BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in))){
+        try (InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+             BufferedReader bufferedReader=new BufferedReader(inputStreamReader)){
             System.out.println("Выберите операцию:\n" +
                     "1-создать пользователя\n" +
                     "2-найти пользователя\n" +
@@ -66,7 +67,8 @@ public class AppController {
     }
 
    public void getUser() {
-       try (BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in))){
+       try (InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+            BufferedReader bufferedReader=new BufferedReader(inputStreamReader)){
            System.out.println("Введите email пользователя");
            String email= bufferedReader.readLine();
            User user = this.iUserService.get(email);
@@ -88,7 +90,8 @@ public class AppController {
    }
 
    public void updateUser(){
-       try (BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in))){
+       try (InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+            BufferedReader bufferedReader=new BufferedReader(inputStreamReader)){
            System.out.println("Введите email пользовтаеля, которого вы хотите редактировать");
            String currentEmail= bufferedReader.readLine();
            User user1 = this.iUserService.get(currentEmail);
@@ -125,7 +128,8 @@ public class AppController {
    }
 
    public void deleteUser(){
-       try (BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in))){
+       try (InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+            BufferedReader bufferedReader=new BufferedReader(inputStreamReader)){
            System.out.println("Введите email пользовтаеля, которого вы хотите удалить");
            String currentEmail= bufferedReader.readLine();
            boolean delete = this.iUserService.delete(currentEmail);
@@ -144,7 +148,8 @@ public class AppController {
 
    public User connectUtils()throws IOException{
        User user = new User();
-       BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
+       InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+       BufferedReader bufferedReader=new BufferedReader(inputStreamReader);
            System.out.println("Введите имя");
            String firstName = bufferedReader.readLine();
            System.out.println("Введите фамилию");
@@ -194,6 +199,9 @@ public class AppController {
            user.setEmail(email);
            user.setRole(role);
            user.setNumber(numbers);
+
+           bufferedReader.close();
+           inputStreamReader.close();
 
        return user;
    }
